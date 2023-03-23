@@ -1,14 +1,14 @@
-# React Native Animated Bottom Sheet
+# React Native Animated Bottom Drawer
 
-A performant interactive bottom sheet with fully configurable options
+A lightweight and highly performant bottom drawer for react native
 
 ## Features
 
 - Extremely lightweight (~15kb) and highly performant
-- Support for snapping (multi level bottom sheet)
+- Support for snapping (multi level bottom drawer)
 - Smooth Animations and Gestures
 - Completely Customisable
-- `useBottomSheet` hook to allow the bottom sheet children to access bottom sheet methods
+- `useBottomDrawer` hook to allow the bottom drawer children to access bottom drawer methods
 - Written in Typescript
 
 ## Usage
@@ -16,23 +16,23 @@ A performant interactive bottom sheet with fully configurable options
 ```
 import React, { useRef } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import BottomSheet from 'rn-animated-bottom-sheet';
+import BottomDrawer from 'react-native-animated-bottom-drawer';
 
 const App = () => {
   // ref
-  const bottomSheetRef = useRef<BottomSheet>(null);
+  const bottomDrawerRef = useRef<bottomDrawer>(null);
 
   // renders
   return (
     <View style={styles.container}>
-      <BottomSheet
-        ref={bottomSheetRef}
+      <BottomDrawer
+        ref={bottomDrawerRef}
         openOnMount
       >
         <View style={styles.contentContainer}>
           <Text>Awesome 🎉</Text>
         </View>
-      </BottomSheet>
+      </BottomDrawer>
     </View>
   );
 };
@@ -54,28 +54,28 @@ export default App;
 
 ## Available Props
 
-| Name                   | Type     | Default | Description                                                                                            |
-| ---------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------ |
-| `openDuration`         | number   | `450`   | Animation duration when the bottom sheet is opened                                                     |
-| `closeDuration`        | number   | `300`   | Animation duration when the bottom sheet is closed                                                     |
-| `onOpen`               | function | `null`  | Callback function when the bottom sheet is opened                                                      |
-| `onClose`              | function | `null`  | Callback function when the bottom sheet is closed                                                      |
-| `onBackdropPress`      | boolean  | `true`  | Callback function when the backdrop is pressed                                                         |
-| `closeOnPressBack`     | boolean  | `true`  | Setting this true will allow the bottom sheet to close when hardware back is pressed (only on android) |
-| `closeOnBackdropPress` | boolean  | `true`  | Setting this true will allow the bottom sheet to close when backdrop is pressed                        |
-| `openOnMount`          | boolean  | `false` | Setting this true will automatically open the bottom sheet when the parent component is mounted        |
-| `enableSnapping`       | boolean  | `false` | Set this to true when you want to snap the bottom sheet to multiple heights                            |
-| `backdropColor`        | string   | `#000`  | Set this to true when you want to snap the bottom sheet to multiple heights                            |
-| `customStyles`         | object   | `{}`    | Add your custom styles here!                                                                           |
-| `backdropOpacity`      | number   | `0.5`   | Opacity of the backdrop                                                                                |
+| Name                   | Type     | Default | Description                                                                                             |
+| ---------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------- |
+| `openDuration`         | number   | `450`   | Animation duration when the bottom drawer is opened                                                     |
+| `closeDuration`        | number   | `300`   | Animation duration when the bottom drawer is closed                                                     |
+| `onOpen`               | function | `null`  | Callback function when the bottom drawer is opened                                                      |
+| `onClose`              | function | `null`  | Callback function when the bottom drawer is closed                                                      |
+| `onBackdropPress`      | boolean  | `true`  | Callback function when the backdrop is pressed                                                          |
+| `closeOnPressBack`     | boolean  | `true`  | Setting this true will allow the bottom drawer to close when hardware back is pressed (only on android) |
+| `closeOnBackdropPress` | boolean  | `true`  | Setting this true will allow the bottom drawer to close when backdrop is pressed                        |
+| `openOnMount`          | boolean  | `false` | Setting this true will automatically open the bottom drawer when the parent component is mounted        |
+| `enableSnapping`       | boolean  | `false` | Set this to true when you want to snap the bottom drawer to multiple heights                            |
+| `backdropColor`        | string   | `#000`  | Set this to true when you want to snap the bottom drawer to multiple heights                            |
+| `customStyles`         | object   | `{}`    | Add your custom styles here!                                                                            |
+| `backdropOpacity`      | number   | `0.5`   | Opacity of the backdrop                                                                                 |
 
 ## Available Methods
 
-These methods can be accessed by bottom sheet reference or `useBottomSheet` hook.
+These methods can be accessed by bottom drawer reference or `useBottomDrawer` hook.
 
 ### **open**
 
-Opens the bottom sheet
+Opens the bottom drawer
 
 ```
 type open = (
@@ -86,7 +86,7 @@ type open = (
 
 ### **close**
 
-Closes the bottom sheet
+Closes the bottom drawer
 
 ```
 type close = () => void;
@@ -94,7 +94,7 @@ type close = () => void;
 
 ### **snapToPosition**
 
-Snaps the bottom sheet to given position
+Snaps the bottom drawer to given position
 
 ```
 type snapToPostion = (
@@ -104,7 +104,7 @@ type snapToPostion = (
 
 ### **snapToIndex**
 
-Snaps the bottom sheet to given index out of snapPoints (requires `enableSnapping` to be `true`)
+Snaps the bottom drawer to given index out of snapPoints (requires `enableSnapping` to be `true`)
 
 ```
 type snapToIndex = (

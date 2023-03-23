@@ -1,15 +1,15 @@
 import {ReactNode, Ref} from 'react';
 import {ViewStyle} from 'react-native/types';
 
-export interface BottomSheetMethods {
+export interface BottomDrawerMethods {
   open(sheetHeight?: number): void;
   close(): void;
   snapToPosition: (sheetHeight: number, type: string) => void;
   snapToIndex: (index: number) => void;
 }
 
-export interface BottomSheetWithRef extends BottomDrawerProps {
-  ref: Ref<BottomSheetMethods>;
+export interface BottomDrawerWithRef extends BottomDrawerProps {
+  ref: Ref<BottomDrawerMethods>;
 }
 
 export type BottomDrawerProps = {

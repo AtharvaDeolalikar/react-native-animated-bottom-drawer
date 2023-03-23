@@ -18,14 +18,14 @@ import {
 } from 'react-native';
 
 import {styles} from './styles';
-import {BottomSheetMethods, BottomSheetWithRef} from './type';
-import {BottomSheetContext} from './useBottomSheet';
+import {BottomDrawerMethods, BottomDrawerWithRef} from './type';
+import {BottomSheetContext} from './useBottomDrawer';
 
 const screenHeight = Dimensions.get('window').height;
 
-const BottomSheet: ForwardRefRenderFunction<
-  BottomSheetMethods,
-  BottomSheetWithRef
+const BottomDrawer: ForwardRefRenderFunction<
+  BottomDrawerMethods,
+  BottomDrawerWithRef
 > = (props, ref) => {
   const {
     onClose = null,
@@ -221,4 +221,4 @@ const BottomSheet: ForwardRefRenderFunction<
   );
 };
 
-export default forwardRef(BottomSheet);
+export default forwardRef(BottomDrawer);

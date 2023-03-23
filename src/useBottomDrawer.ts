@@ -1,9 +1,9 @@
 import {createContext, useContext} from 'react';
-import {BottomSheetMethods} from './type';
+import {BottomDrawerMethods} from './type';
 
-export const BottomSheetContext = createContext<BottomSheetMethods>(null!);
+export const BottomSheetContext = createContext<BottomDrawerMethods>(null!);
 
-const useBottomSheet = () => {
+const useBottomDrawer = () => {
   const currentBottomSheetContext = useContext(BottomSheetContext);
 
   if (!currentBottomSheetContext) {
@@ -13,4 +13,4 @@ const useBottomSheet = () => {
   return currentBottomSheetContext;
 };
 
-export default useBottomSheet;
+export default useBottomDrawer;
