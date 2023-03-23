@@ -11,6 +11,20 @@ A lightweight and highly performant bottom drawer for react native
 - `useBottomDrawer` hook to allow the bottom drawer children to access bottom drawer methods
 - Written in Typescript
 
+## Installation
+
+using npm
+
+```
+npm i react-native-animated-bottom-drawer
+```
+
+using yarn
+
+```
+yarn add react-native-animated-bottom-drawer
+```
+
 ## Usage
 
 ```tsx
