@@ -43,7 +43,7 @@ const BottomDrawer: ForwardRefRenderFunction<
     children,
     openOnMount = false,
     backdropColor = '#000',
-    snapPoints = [],
+    snapPoints = [400],
     initialIndex = 0,
     enableSnapping = false,
     gestureMode = 'handle'
