@@ -1,11 +1,1 @@
-ios/
-android/
-vendor/
-.eslintrc.js
-.ruby-version
-.watchmanconfig
-babel.config.js
-metro.config.js
-tsconfig.json
-yarn.lock
-prettierrc.js
+
