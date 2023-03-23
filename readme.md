@@ -97,6 +97,8 @@ type open = (
 ) => void;
 ```
 
+**_NOTE:_** `sheetHeight` is only read when `enableSnapping` is set to `false` If `enableSnapping` is `true`, then the bottom sheet will be opened at index 0 out of `snapPoints`.
+
 ### **close**
 
 Closes the bottom drawer
@@ -124,3 +126,5 @@ type snapToIndex = (
     index: number
 ) => void;
 ```
+
+**_NOTE:_** This method is only accessible when `enableSnapping` is set to `true`.
