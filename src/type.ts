@@ -12,6 +12,7 @@ export interface BottomDrawerWithRef extends BottomDrawerProps {
   ref: Ref<BottomDrawerMethods>;
 }
 
+
 export type BottomDrawerProps = {
   onBackdropPress?: () => void;
   openDuration?: number;
@@ -33,6 +34,6 @@ export type BottomDrawerProps = {
   backdropColor?: string;
   snapPoints?: number[];
   initialIndex?: number;
-  positionWhenKeyboardOpened?: number;
   enableSnapping?: boolean;
+  gestureMode?: 'content' | 'handle' | 'none'
 };

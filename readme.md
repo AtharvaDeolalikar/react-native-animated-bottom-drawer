@@ -15,24 +15,24 @@ A lightweight and highly performant bottom drawer for react native
 
 using npm
 
-```
+```sh
 npm i react-native-animated-bottom-drawer
 ```
 
 using yarn
 
-```
+```sh
 yarn add react-native-animated-bottom-drawer
 ```
 
 ## Usage
 
 ```tsx
-import React, {useRef} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, { useRef } from "react";
+import { View, Text, StyleSheet } from "react-native";
 import BottomDrawer, {
   BottomDrawerMethods,
-} from 'react-native-animated-bottom-drawer';
+} from "react-native-animated-bottom-drawer";
 
 const App = () => {
   // ref
@@ -54,11 +54,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: 'grey',
+    backgroundColor: "grey",
   },
   contentContainer: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
 });
 
@@ -67,20 +67,21 @@ export default App;
 
 ## Available Props
 
-| Name                   | Type     | Default | Description                                                                                             |
-| ---------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------- |
-| `openDuration`         | number   | `450`   | Animation duration when the bottom drawer is opened                                                     |
-| `closeDuration`        | number   | `300`   | Animation duration when the bottom drawer is closed                                                     |
-| `onOpen`               | function | `null`  | Callback function when the bottom drawer is opened                                                      |
-| `onClose`              | function | `null`  | Callback function when the bottom drawer is closed                                                      |
-| `onBackdropPress`      | boolean  | `true`  | Callback function when the backdrop is pressed                                                          |
-| `closeOnPressBack`     | boolean  | `true`  | Setting this true will allow the bottom drawer to close when hardware back is pressed (only on android) |
-| `closeOnBackdropPress` | boolean  | `true`  | Setting this true will allow the bottom drawer to close when backdrop is pressed                        |
-| `openOnMount`          | boolean  | `false` | Setting this true will automatically open the bottom drawer when the parent component is mounted        |
-| `enableSnapping`       | boolean  | `false` | Set this to true when you want to snap the bottom drawer to multiple heights                            |
-| `backdropColor`        | string   | `#000`  | Set this to true when you want to snap the bottom drawer to multiple heights                            |
-| `customStyles`         | object   | `{}`    | Add your custom styles here!                                                                            |
-| `backdropOpacity`      | number   | `0.5`   | Opacity of the backdrop                                                                                 |
+| Name                   | Type                    | Default  | Description                                                                                             |
+| ---------------------- | ----------------------- | -------- | ------------------------------------------------------------------------------------------------------- |
+| `gestureMode`          | `handle  content  none` | `handle` | This prop determines where to apply the gestures                                                        |
+| `openDuration`         | number                  | `450`    | Animation duration when the bottom drawer is opened                                                     |
+| `closeDuration`        | number                  | `300`    | Animation duration when the bottom drawer is closed                                                     |
+| `onOpen`               | function                | `null`   | Callback function when the bottom drawer is opened                                                      |
+| `onClose`              | function                | `null`   | Callback function when the bottom drawer is closed                                                      |
+| `onBackdropPress`      | boolean                 | `true`   | Callback function when the backdrop is pressed                                                          |
+| `closeOnPressBack`     | boolean                 | `true`   | Setting this true will allow the bottom drawer to close when hardware back is pressed (only on android) |
+| `closeOnBackdropPress` | boolean                 | `true`   | Setting this true will allow the bottom drawer to close when backdrop is pressed                        |
+| `openOnMount`          | boolean                 | `false`  | Setting this true will automatically open the bottom drawer when the parent component is mounted        |
+| `enableSnapping`       | boolean                 | `false`  | Set this to true when you want to snap the bottom drawer to multiple heights                            |
+| `backdropColor`        | string                  | `#000`   | Set this to true when you want to snap the bottom drawer to multiple heights                            |
+| `customStyles`         | object                  | `{}`     | Add your custom styles here!                                                                            |
+| `backdropOpacity`      | number                  | `0.5`    | Opacity of the backdrop                                                                                 |
 
 ## Available Methods
 

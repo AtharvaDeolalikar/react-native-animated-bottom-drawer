@@ -1,4 +1,5 @@
-import {
+
+import React, {
   useState,
   useRef,
   useImperativeHandle,
@@ -45,6 +46,7 @@ const BottomDrawer: ForwardRefRenderFunction<
     snapPoints = [],
     initialIndex = 0,
     enableSnapping = false,
+    gestureMode = 'handle'
   } = props;
 
   const [modalVisible, setModalVisible] = useState<boolean>(openOnMount);
@@ -204,13 +206,15 @@ const BottomDrawer: ForwardRefRenderFunction<
         />
       </Animated.View>
       <Animated.View
-        {...panResponder.panHandlers}
+        {...(gestureMode === 'content' && panResponder.panHandlers)}
         style={[
           styles.container,
           customStyles.container,
           {transform: [{translateY: animatedHeight}]},
         ]}>
-        <View style={[styles.handleContainer, customStyles.handleContainer]}>
+        <View 
+         {...(gestureMode === 'handle' && panResponder.panHandlers)}
+        style={[styles.handleContainer, customStyles.handleContainer]}>
           <View style={[styles.handle, customStyles.handle]} />
         </View>
         <BottomSheetContext.Provider value={bottomSheetMethods}>
