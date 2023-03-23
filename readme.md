@@ -13,22 +13,21 @@ A lightweight and highly performant bottom drawer for react native
 
 ## Usage
 
-```
-import React, { useRef } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import BottomDrawer from 'react-native-animated-bottom-drawer';
+```tsx
+import React, {useRef} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import BottomDrawer, {
+  BottomDrawerMethods,
+} from 'react-native-animated-bottom-drawer';
 
 const App = () => {
   // ref
-  const bottomDrawerRef = useRef<bottomDrawer>(null);
+  const bottomDrawerRef = useRef<BottomDrawerMethods>(null);
 
   // renders
   return (
     <View style={styles.container}>
-      <BottomDrawer
-        ref={bottomDrawerRef}
-        openOnMount
-      >
+      <BottomDrawer ref={bottomDrawerRef} openOnMount>
         <View style={styles.contentContainer}>
           <Text>Awesome 🎉</Text>
         </View>

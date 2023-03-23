@@ -1,7 +1,6 @@
 {
   "name": "react-native-animated-bottom-drawer",
-  "version": "0.0.1",
-  "scripts": {},
+  "version": "0.0.7",
   "dependencies": {
     "react": "18.2.0",
     "react-native": "0.71.2"
@@ -21,13 +20,17 @@
   "jest": {
     "preset": "react-native"
   },
-  "description": "React Native Bottom Sheet",
+  "description": "A lightweight, highly performant and animated bottom drawer for react native",
   "main": "index.ts",
   "keywords": [
-    "react-native",
-    "bottom-sheet",
+    "react native",
+    "bottom drawer",
+    "bottom sheet",
     "react"
   ],
+  "repository": {
+    "url": "https://github.com/AtharvaDeolalikar/react-native-animated-bottom-drawer"
+  },
   "author": "Atharva Deolalikar",
   "license": "ISC"
 }
