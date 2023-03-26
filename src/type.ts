@@ -4,7 +4,7 @@ import {ViewStyle} from 'react-native/types';
 export interface BottomDrawerMethods {
   open(sheetHeight?: number): void;
   close(): void;
-  snapToPosition: (sheetHeight: number, type: string) => void;
+  snapToPosition: (sheetHeight: number, type?: string) => void;
   snapToIndex: (index: number) => void;
 }
 

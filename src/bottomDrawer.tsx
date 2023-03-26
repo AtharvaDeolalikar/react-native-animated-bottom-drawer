@@ -104,7 +104,10 @@ const BottomDrawer: ForwardRefRenderFunction<
     }).start();
   };
 
-  const handleSnapToPosition = (position: number, type: string) => {
+  const handleSnapToPosition = (position: number, type: string = 'spring') => {
+    if(!modalVisible){
+      return console.warn('snapToPosition can be used only when bottom drawer is opened')
+    }
     lastPosition.current = position;
     if (type === 'timing') {
       Animated.timing(animatedHeight, {
