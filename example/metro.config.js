@@ -4,27 +4,6 @@
 //  *
 //  * @format
 //  */
-// const path = require('path');
-
-// module.exports = {
-//   projectRoot: __dirname,
-
-//   resolver: {
-//     nodeModulesPaths: ['/Users/atharvadeolalikar/Projects/bottom-sheet'],
-//     //   extraNodeModules: {
-//     //     'react-native-animated-bottom-drawer':
-//     //       ',
-//     //   },
-//   },
-//   transformer: {
-//     getTransformOptions: async () => ({
-//       transform: {
-//         experimentalImportSupport: false,
-//         inlineRequires: true,
-//       },
-//     }),
-//   },
-// };
 
 const path = require('path');
 const extraNodeModules = {

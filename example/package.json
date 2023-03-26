@@ -1,5 +1,5 @@
 {
-  "name": "example",
+  "name": "bottom-sheet-example-app",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "react": "18.2.0",
-    "react-native": "0.71.4"
+    "react-native": "0.71.4",
+    "react-native-animated-bottom-drawer": "/Users/atharvadeolalikar/Projects/bottom-sheet"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
