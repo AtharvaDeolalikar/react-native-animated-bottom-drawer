@@ -1,4 +1,3 @@
-
 import React, {
   useState,
   useRef,
@@ -46,7 +45,8 @@ const BottomDrawer: ForwardRefRenderFunction<
     snapPoints = [400],
     initialIndex = 0,
     enableSnapping = false,
-    gestureMode = 'handle'
+    gestureMode = 'handle',
+    overDrag = true,
   } = props;
 
   const [modalVisible, setModalVisible] = useState<boolean>(openOnMount);
@@ -105,9 +105,12 @@ const BottomDrawer: ForwardRefRenderFunction<
   };
 
   const handleSnapToPosition = (position: number, type: string = 'spring') => {
-    if(!modalVisible){
-      return console.warn('snapToPosition can be used only when bottom drawer is opened')
+    if (!modalVisible) {
+      return console.warn(
+        'snapToPosition can be used only when bottom drawer is opened',
+      );
     }
+
     lastPosition.current = position;
     if (type === 'timing') {
       Animated.timing(animatedHeight, {
@@ -127,8 +130,24 @@ const BottomDrawer: ForwardRefRenderFunction<
       onStartShouldSetPanResponder: (evt, gestureState) => true,
       onPanResponderMove: (evt, gestureState) => {
         const {dy} = gestureState;
-        const output = dy / 6;
-        animatedHeight.setOffset(output);
+        let offset = 0;
+
+        if (dy < 0) {
+          if (enableSnapping) {
+            if (currentIndex.current + 1 == snapPoints.length) {
+              offset = overDrag ? dy / 6 : 0;
+            } else {
+              offset = dy;
+            }
+          } else {
+            offset = overDrag ? dy / 6 : 0;
+          }
+        } else {
+          offset = dy;
+        }
+        if (lastPosition.current + offset * -1 + 20 < screenHeight) {
+          animatedHeight.setOffset(offset);
+        }
       },
       onPanResponderRelease: (evt, gestureState) => {
         animatedHeight.flattenOffset();
@@ -155,21 +174,6 @@ const BottomDrawer: ForwardRefRenderFunction<
   const handleIsOpen = () => modalVisible;
 
   useEffect(() => {
-    // Platform.OS == 'ios' &&
-    //     Keyboard.addListener('keyboardWillShow', e => {
-    //         const keyboardHeight = e.endCoordinates.height;
-
-    //         handleSnapToPosition(keyboardHeight + snapPoints[0], 'timing');
-
-    //         // if(lastPosition.current + e.endCoordinates.height )
-    //     });
-    // Platform.OS == 'android' &&
-    //     Keyboard.addListener('keyboardDidShow', e => {
-    //         const keyboardHeight = e.endCoordinates.height;
-
-    //         handleSnapToPosition(keyboardHeight + snapPoints[0], 'timing');
-    //     });
-
     openOnMount && handleOpen();
   }, []);
 
@@ -215,9 +219,9 @@ const BottomDrawer: ForwardRefRenderFunction<
           customStyles.container,
           {transform: [{translateY: animatedHeight}]},
         ]}>
-        <View 
-         {...(gestureMode === 'handle' && panResponder.panHandlers)}
-        style={[styles.handleContainer, customStyles.handleContainer]}>
+        <View
+          {...(gestureMode === 'handle' && panResponder.panHandlers)}
+          style={[styles.handleContainer, customStyles.handleContainer]}>
           <View style={[styles.handle, customStyles.handle]} />
         </View>
         <BottomSheetContext.Provider value={bottomSheetMethods}>

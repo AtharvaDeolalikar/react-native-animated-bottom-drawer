@@ -28,11 +28,11 @@ yarn add react-native-animated-bottom-drawer
 ## Usage
 
 ```tsx
-import React, { useRef } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, {useRef} from 'react';
+import {View, Text, StyleSheet, Button, SafeAreaView} from 'react-native';
 import BottomDrawer, {
   BottomDrawerMethods,
-} from "react-native-animated-bottom-drawer";
+} from 'react-native-animated-bottom-drawer';
 
 const App = () => {
   // ref
@@ -40,13 +40,14 @@ const App = () => {
 
   // renders
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Button title="Open" onPress={() => bottomDrawerRef.current.open()} />
       <BottomDrawer ref={bottomDrawerRef} openOnMount>
         <View style={styles.contentContainer}>
           <Text>Awesome 🎉</Text>
         </View>
       </BottomDrawer>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -54,11 +55,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: "grey",
   },
   contentContainer: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
   },
 });
 
@@ -83,6 +83,9 @@ export default App;
 | `backdropColor`        | `string`                | `#000`   | Color of the backdrop                                                                                                                      | No                                 |
 | `backdropOpacity`      | `number`                | `0.5`    | Opacity of the backdrop                                                                                                                    | No                                 |
 | `customStyles`         | `object`                | `{}`     | Add your custom styles here!                                                                                                               | No                                 |
+| `overDrag`             | `boolean`               | `true`   | Setting this true will allow the bottom sheet to be overdragged                                                                            | No                                 |
+| `initialIndex`         | `number`                | `0`      | The initial index out of `snapPoints` when the bottom sheet is opened                                                                      | No                                 |
+| `initialHeight`        | `number`                | `420`    | The initial height of the bottom sheet when opened. **_Note_**: This prop is not available when `enableSnapping` is set to `true`          | No                                 |
 
 ## Available Methods
 
@@ -95,11 +98,11 @@ Opens the bottom drawer
 ```ts
 type open = (
   // open at provided sheetHeight
-  sheetHeight?: number
+  sheetHeight?: number,
 ) => void;
 ```
 
-**_NOTE:_** `sheetHeight` is only read when `enableSnapping` is set to `false` If `enableSnapping` is `true`, then the bottom sheet will be opened at index 0 out of `snapPoints`.
+**_NOTE:_** `sheetHeight` is only read when `enableSnapping` is set to `false`. If `enableSnapping` is `true`, then the bottom sheet will be opened at index 0 out of `snapPoints`.
 
 ### **close**
 

@@ -7,7 +7,7 @@
 
 const path = require('path');
 const extraNodeModules = {
-  common: path.resolve(__dirname + '/../'),
+  'react-native-animated-bottom-drawer': path.resolve(__dirname + '/../'),
 };
 const watchFolders = [path.resolve(__dirname + '/../')];
 module.exports = {
@@ -21,11 +21,13 @@ module.exports = {
   },
   resolver: {
     extraNodeModules: new Proxy(extraNodeModules, {
-      get: (target, name) =>
+      get: (target, name) => {
         //redirects dependencies referenced from common/ to local node_modules
-        name in target
+        //console.log(target, name);
+        return name in target
           ? target[name]
-          : path.join(process.cwd(), `node_modules/${name}`),
+          : path.join(process.cwd(), `node_modules/${name}`);
+      },
     }),
   },
   watchFolders,

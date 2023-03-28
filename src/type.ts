@@ -12,7 +12,6 @@ export interface BottomDrawerWithRef extends BottomDrawerProps {
   ref: Ref<BottomDrawerMethods>;
 }
 
-
 export type BottomDrawerProps = {
   onBackdropPress?: () => void;
   openDuration?: number;
@@ -35,5 +34,6 @@ export type BottomDrawerProps = {
   snapPoints?: number[];
   initialIndex?: number;
   enableSnapping?: boolean;
-  gestureMode?: 'content' | 'handle' | 'none'
+  gestureMode?: 'content' | 'handle' | 'none';
+  overDrag?: boolean;
 };
