@@ -19,10 +19,6 @@ const App = () => {
         snapPoints={[300, 500]}>
         <View style={styles.contentContainer}>
           <Text>Awesome 🎉</Text>
-          <Button
-            title="Snap"
-            onPress={() => bottomDrawerRef.current.snapToIndex(3)}
-          />
         </View>
       </BottomDrawer>
     </SafeAreaView>

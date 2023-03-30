@@ -1,10 +1,17 @@
 import {ReactNode, Ref} from 'react';
 import {ViewStyle} from 'react-native/types';
 
+export type SnapToPosition = (
+  sheetHeight: number,
+  config?: SnapToPositionConfig,
+) => void;
+
+export type UseBottomDrawerKeyboard = {keyboardOpen: boolean};
+
 export interface BottomDrawerMethods {
   open(sheetHeight?: number): void;
   close(): void;
-  snapToPosition: (sheetHeight: number, type?: string) => void;
+  snapToPosition: SnapToPosition;
   snapToIndex: (index: number) => void;
 }
 
@@ -26,6 +33,7 @@ export type BottomDrawerProps = {
   };
   onClose?: () => void;
   onOpen?: () => void;
+  onBackPress?: () => void;
   children: ReactNode;
   openOnMount?: boolean;
   initialHeight?: number;
@@ -36,4 +44,17 @@ export type BottomDrawerProps = {
   enableSnapping?: boolean;
   gestureMode?: 'content' | 'handle' | 'none';
   overDrag?: boolean;
+  safeTopOffset?: number;
+  // enableDragWhenKeyboardOpened?: boolean;
+};
+
+export type SnapToPositionConfig = {
+  resetLastPosition?: boolean;
+};
+
+export type UseKeyboardDrawerProps = {
+  modalVisible: boolean;
+  lastPosition: {current: number};
+  handleSnapToPosition: SnapToPosition;
+  safeTopOffset: number;
 };

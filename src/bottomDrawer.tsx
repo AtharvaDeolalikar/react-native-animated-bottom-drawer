@@ -11,17 +11,30 @@ import {
   Modal,
   Animated,
   PanResponder,
-  Dimensions,
   Pressable,
   Easing,
   Keyboard,
 } from 'react-native';
-
 import {styles} from './styles';
-import {BottomDrawerMethods, BottomDrawerWithRef} from './type';
-import {BottomSheetContext} from './useBottomDrawer';
-
-const screenHeight = Dimensions.get('window').height;
+import {
+  BottomDrawerMethods,
+  BottomDrawerWithRef,
+  SnapToPositionConfig,
+} from './type';
+import {BottomSheetContext} from './hooks/useBottomDrawer';
+import {
+  defaultBackdropColor,
+  defaultBackdropOpacity,
+  defaultCloseDuration,
+  defaultGestureMode,
+  defaultInitialHeight,
+  defaultInitialIndex,
+  defaultOpenDuration,
+  defaultSnapPoints,
+  defaultSafeTopOffset,
+  screenHeight,
+} from './constants';
+import useBottomDrawerKeyboard from './hooks/useBottomDrawerKeyboard';
 
 const BottomDrawer: ForwardRefRenderFunction<
   BottomDrawerMethods,
@@ -29,33 +42,36 @@ const BottomDrawer: ForwardRefRenderFunction<
 > = (props, ref) => {
   const {
     onClose = null,
-    openDuration = 450,
-    closeDuration = 300,
+    openDuration = defaultOpenDuration,
+    closeDuration = defaultCloseDuration,
     customStyles = {handleContainer: {}, handle: {}, container: {}},
     onOpen = null,
     closeOnDragDown = true,
     closeOnPressBack = true,
-    backdropOpacity = 0.5,
+    backdropOpacity = defaultBackdropOpacity,
     onBackdropPress = null,
     closeOnBackdropPress = true,
-    initialHeight = 420,
+    initialHeight = defaultInitialHeight,
     children,
     openOnMount = false,
-    backdropColor = '#000',
-    snapPoints = [400],
-    initialIndex = 0,
+    backdropColor = defaultBackdropColor,
+    snapPoints = defaultSnapPoints,
+    initialIndex = defaultInitialIndex,
     enableSnapping = false,
-    gestureMode = 'handle',
+    gestureMode = defaultGestureMode,
     overDrag = true,
+    safeTopOffset = defaultSafeTopOffset,
+    onBackPress = null,
+    // enableDragWhenKeyboardOpened = false,
   } = props;
 
-  const [modalVisible, setModalVisible] = useState<boolean>(openOnMount);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
   const animatedHeight = useRef(new Animated.Value(screenHeight)).current;
   const lastPosition = useRef<number>(initialHeight);
   const currentIndex = useRef<number>(initialIndex);
 
   const checkIfAvailable = (index: number) => {
-    if (!enableSnapping || snapPoints.length == index || index < 0) {
+    if (!enableSnapping || snapPoints.length <= index || index < 0) {
       return false;
     }
     return true;
@@ -65,7 +81,6 @@ const BottomDrawer: ForwardRefRenderFunction<
     const _val = enableSnapping ? snapPoints[initialIndex] : sheetHeight;
     lastPosition.current = _val;
     setModalVisible(true);
-
     Animated.timing(animatedHeight, {
       useNativeDriver: true,
       toValue: screenHeight - _val,
@@ -78,8 +93,11 @@ const BottomDrawer: ForwardRefRenderFunction<
     });
   };
 
+  useEffect(() => {
+    openOnMount && handleOpen();
+  }, []);
+
   const handleClose = () => {
-    Keyboard.dismiss();
     Animated.timing(animatedHeight, {
       useNativeDriver: true,
       toValue: screenHeight,
@@ -96,28 +114,29 @@ const BottomDrawer: ForwardRefRenderFunction<
     if (!checkIfAvailable(index)) {
       throw Error('Provided index is out of range of snapPoints!');
     }
-    lastPosition.current = snapPoints[index];
-    currentIndex.current = index;
-    Animated.spring(animatedHeight, {
-      useNativeDriver: true,
-      toValue: screenHeight - snapPoints[index],
-    }).start();
+    if (!keyboardOpen) {
+      lastPosition.current = snapPoints[index];
+      Animated.spring(animatedHeight, {
+        useNativeDriver: true,
+        toValue: screenHeight - snapPoints[index],
+      }).start(() => {
+        currentIndex.current = index;
+      });
+    }
   };
 
-  const handleSnapToPosition = (position: number, type: string = 'spring') => {
+  const handleSnapToPosition = (
+    position: number,
+    config?: SnapToPositionConfig,
+  ) => {
+    const {resetLastPosition = true} = config || {};
     if (!modalVisible) {
       return console.warn(
         'snapToPosition can be used only when bottom drawer is opened',
       );
     }
-
-    lastPosition.current = position;
-    if (type === 'timing') {
-      Animated.timing(animatedHeight, {
-        useNativeDriver: true,
-        duration: 300,
-        toValue: screenHeight - position,
-      }).start();
+    if (resetLastPosition) {
+      lastPosition.current = position;
     }
     Animated.spring(animatedHeight, {
       useNativeDriver: true,
@@ -125,13 +144,20 @@ const BottomDrawer: ForwardRefRenderFunction<
     }).start();
   };
 
+  const {keyboardOpen} = useBottomDrawerKeyboard({
+    modalVisible,
+    lastPosition,
+    handleSnapToPosition,
+    safeTopOffset,
+  });
+
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: (evt, gestureState) => true,
+
       onPanResponderMove: (evt, gestureState) => {
         const {dy} = gestureState;
         let offset = 0;
-
         if (dy < 0) {
           if (enableSnapping) {
             if (currentIndex.current + 1 == snapPoints.length) {
@@ -145,17 +171,17 @@ const BottomDrawer: ForwardRefRenderFunction<
         } else {
           offset = dy;
         }
-        if (lastPosition.current + offset * -1 + 20 < screenHeight) {
+        if (lastPosition.current + offset * -1 + safeTopOffset < screenHeight) {
           animatedHeight.setOffset(offset);
         }
       },
       onPanResponderRelease: (evt, gestureState) => {
         animatedHeight.flattenOffset();
         const {dy} = gestureState;
-        if (dy < -50 && checkIfAvailable(currentIndex.current + 1)) {
+        if (dy < -safeTopOffset && checkIfAvailable(currentIndex.current + 1)) {
           return handleSnapToIndex(currentIndex.current + 1);
         }
-        if (dy > 50) {
+        if (dy > safeTopOffset) {
           if (checkIfAvailable(currentIndex.current - 1)) {
             return handleSnapToIndex(currentIndex.current - 1);
           }
@@ -173,10 +199,6 @@ const BottomDrawer: ForwardRefRenderFunction<
 
   const handleIsOpen = () => modalVisible;
 
-  useEffect(() => {
-    openOnMount && handleOpen();
-  }, []);
-
   const bottomSheetMethods = {
     open: handleOpen,
     snapToPosition: handleSnapToPosition,
@@ -187,13 +209,29 @@ const BottomDrawer: ForwardRefRenderFunction<
 
   useImperativeHandle(ref, (): any => bottomSheetMethods);
 
+  const handleKeyboardAndDrawerClose = (
+    source: 'backPress' | 'backDrop',
+    drawerClose: boolean,
+  ) => {
+    if (source === 'backPress' && onBackPress) {
+      onBackPress();
+    } else if (source === 'backDrop' && onBackdropPress) {
+      onBackdropPress();
+    }
+    if (keyboardOpen) {
+      Keyboard.dismiss();
+    } else {
+      drawerClose && handleClose();
+    }
+  };
+
   return (
     <Modal
       transparent
       statusBarTranslucent
       visible={modalVisible}
       onRequestClose={() => {
-        closeOnPressBack && handleClose();
+        handleKeyboardAndDrawerClose('backPress', closeOnPressBack);
       }}>
       <Animated.View
         style={{
@@ -207,8 +245,7 @@ const BottomDrawer: ForwardRefRenderFunction<
         <Pressable
           style={{flex: 1, backgroundColor: backdropColor}}
           onPress={() => {
-            onBackdropPress && onBackdropPress();
-            closeOnBackdropPress && handleClose();
+            handleKeyboardAndDrawerClose('backDrop', closeOnBackdropPress);
           }}
         />
       </Animated.View>

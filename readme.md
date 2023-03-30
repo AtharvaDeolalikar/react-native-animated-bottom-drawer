@@ -4,11 +4,12 @@ A lightweight and highly performant bottom drawer for react native
 
 ## Features
 
-- Extremely lightweight (~15kb) and highly performant
-- Support for snapping (multi level bottom drawer)
+- Extremely lightweight (~20 KB) and highly performant
+- Support for snapping (multi height bottom drawer)
 - Smooth Animations and Gestures
 - Completely Customisable
-- `useBottomDrawer` hook to allow the bottom drawer children to access bottom drawer methods
+- Automatic Keyboard Handling
+- `useBottomDrawer` hook to allow the bottom drawer child components to access bottom drawer methods
 - Written in Typescript
 
 ## Installation
@@ -74,7 +75,8 @@ export default App;
 | `closeDuration`        | `number`                | `300`    | Animation duration when the bottom drawer is closed                                                                                        | No                                 |
 | `onOpen`               | `function`              | `null`   | Callback function when the bottom drawer is opened                                                                                         | No                                 |
 | `onClose`              | `function`              | `null`   | Callback function when the bottom drawer is closed                                                                                         | No                                 |
-| `onBackdropPress`      | `boolean`               | `true`   | Callback function when the backdrop is pressed                                                                                             | No                                 |
+| `onBackdropPress`      | `function`              | `true`   | Callback function when the backdrop is pressed                                                                                             | No                                 |
+| `onBackPress`          | `function`              | `null`   | Callback function when the hardware back button is pressed                                                                                 | No                                 |
 | `closeOnPressBack`     | `boolean`               | `true`   | Setting this true will allow the bottom drawer to close when hardware back is pressed (only on android)                                    | No                                 |
 | `closeOnBackdropPress` | `boolean`               | `true`   | Setting this true will allow the bottom drawer to close when backdrop is pressed                                                           | No                                 |
 | `openOnMount`          | `boolean`               | `false`  | Setting this true will automatically open the bottom drawer when the parent component is mounted                                           | No                                 |
@@ -86,6 +88,7 @@ export default App;
 | `overDrag`             | `boolean`               | `true`   | Setting this true will allow the bottom sheet to be overdragged                                                                            | No                                 |
 | `initialIndex`         | `number`                | `0`      | The initial index out of `snapPoints` when the bottom sheet is opened                                                                      | No                                 |
 | `initialHeight`        | `number`                | `420`    | The initial height of the bottom sheet when opened. **_Note_**: This prop is not available when `enableSnapping` is set to `true`          | No                                 |
+| `safeTopOffset`        | `number`                | `50`     | Minimum safe distance from top while dragging the sheet or keyboard is opened                                                              | No                                 |
 
 ## Available Methods
 
@@ -117,7 +120,12 @@ type close = () => void;
 Snaps the bottom drawer to given position
 
 ```ts
-type snapToPostion = (sheetHeight: number) => void;
+type snapToPosition = (
+  sheetHeight: number,
+  config?: {
+    resetLastPosition?: boolean;
+  },
+) => void;
 ```
 
 ### **snapToIndex**
