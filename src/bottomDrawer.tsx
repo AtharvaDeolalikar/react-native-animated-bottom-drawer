@@ -116,12 +116,11 @@ const BottomDrawer: ForwardRefRenderFunction<
     }
     if (!keyboardOpen) {
       lastPosition.current = snapPoints[index];
+      currentIndex.current = index;
       Animated.spring(animatedHeight, {
         useNativeDriver: true,
         toValue: screenHeight - snapPoints[index],
-      }).start(() => {
-        currentIndex.current = index;
-      });
+      }).start();
     }
   };
 
