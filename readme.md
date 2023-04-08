@@ -70,7 +70,7 @@ export default App;
 
 | Name                   | Type                    | Default  | Description                                                                                                                                | Required                           |
 | ---------------------- | ----------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------- |
-| `gestureMode`          | `handle  content  none` | `handle` | This prop determines where to apply the gestures                                                                                           | No                                 |
+| `gestureMode`          | `handle \| content \| none` | `handle` | This prop determines where to apply the gestures                                                                                           | No                                 |
 | `openDuration`         | `number`                | `450`    | Animation duration when the bottom drawer is opened                                                                                        | No                                 |
 | `closeDuration`        | `number`                | `300`    | Animation duration when the bottom drawer is closed                                                                                        | No                                 |
 | `onOpen`               | `function`              | `null`   | Callback function when the bottom drawer is opened                                                                                         | No                                 |
