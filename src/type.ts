@@ -33,6 +33,7 @@ export type BottomDrawerProps = {
   };
   onClose?: () => void;
   onOpen?: () => void;
+  onMove?: (index: number, height: number) => void;
   onBackPress?: () => void;
   children: ReactNode;
   openOnMount?: boolean;
