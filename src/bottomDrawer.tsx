@@ -62,6 +62,7 @@ const BottomDrawer: ForwardRefRenderFunction<
     overDrag = true,
     safeTopOffset = defaultSafeTopOffset,
     onBackPress = null,
+    onMove = null,
     // enableDragWhenKeyboardOpened = false,
   } = props;
 
@@ -124,6 +125,8 @@ const BottomDrawer: ForwardRefRenderFunction<
     }
   };
 
+  const getIndex = () => {return currentIndex.current}
+
   const handleSnapToPosition = (
     position: number,
     config?: SnapToPositionConfig,
@@ -178,10 +181,14 @@ const BottomDrawer: ForwardRefRenderFunction<
         animatedHeight.flattenOffset();
         const {dy} = gestureState;
         if (dy < -safeTopOffset && checkIfAvailable(currentIndex.current + 1)) {
+          if(onMove)
+            onMove(currentIndex.current+1, snapPoints[currentIndex.current + 1]);
           return handleSnapToIndex(currentIndex.current + 1);
         }
         if (dy > safeTopOffset) {
           if (checkIfAvailable(currentIndex.current - 1)) {
+            if(onMove)
+              onMove(currentIndex.current-1, snapPoints[currentIndex.current - 1]);
             return handleSnapToIndex(currentIndex.current - 1);
           }
           if (closeOnDragDown) {
@@ -204,6 +211,7 @@ const BottomDrawer: ForwardRefRenderFunction<
     snapToIndex: handleSnapToIndex,
     close: handleClose,
     isOpen: handleIsOpen,
+    getIndex: getIndex
   };
 
   useImperativeHandle(ref, (): any => bottomSheetMethods);
