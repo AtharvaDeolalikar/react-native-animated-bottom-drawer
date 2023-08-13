@@ -1,6 +1,6 @@
 {
   "name": "react-native-animated-bottom-drawer",
-  "version": "0.0.20",
+  "version": "0.0.23",
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
@@ -10,6 +10,7 @@
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^29.2.1",
     "@types/react": "^18.0.24",
+    "@types/react-native": "^0.72.2",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.2.1",
     "eslint": "^8.19.0",
@@ -22,6 +23,7 @@
   },
   "description": "A lightweight, highly performant and animated bottom drawer for react native",
   "main": "index.ts",
+  "types": "index.d.ts",
   "keywords": [
     "react native",
     "bottom drawer",

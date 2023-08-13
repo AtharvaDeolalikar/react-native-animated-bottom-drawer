@@ -1,5 +1,5 @@
 import {createContext, useContext} from 'react';
-import {BottomDrawerMethods} from '../type';
+import {BottomDrawerMethods} from '../..';
 
 export const BottomSheetContext = createContext<BottomDrawerMethods>(null!);
 

@@ -11,7 +11,7 @@ const App = () => {
   // renders
   return (
     <SafeAreaView style={styles.container}>
-      <Button title="Open" onPress={() => bottomDrawerRef.current.open()} />
+      <Button title="Open" onPress={() => bottomDrawerRef.current?.open()} />
       <BottomDrawer
         ref={bottomDrawerRef}
         openOnMount

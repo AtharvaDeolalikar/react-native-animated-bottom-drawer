@@ -1,4 +1,4 @@
-import {ReactNode, Ref} from 'react';
+import {ForwardRefExoticComponent, ReactNode, Ref} from 'react';
 import {ViewStyle} from 'react-native/types';
 
 export type SnapToPosition = (
@@ -58,3 +58,8 @@ export type UseKeyboardDrawerProps = {
   handleSnapToPosition: SnapToPosition;
   safeTopOffset: number;
 };
+
+declare const BottomDrawer: ForwardRefExoticComponent<
+  Omit<BottomDrawerWithRef, 'ref'> & React.RefAttributes<BottomDrawerMethods>
+>;
+export default BottomDrawer;

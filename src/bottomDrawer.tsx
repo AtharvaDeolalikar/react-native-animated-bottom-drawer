@@ -20,7 +20,7 @@ import {
   BottomDrawerMethods,
   BottomDrawerWithRef,
   SnapToPositionConfig,
-} from './type';
+} from '..';
 import {BottomSheetContext} from './hooks/useBottomDrawer';
 import {
   defaultBackdropColor,
@@ -159,7 +159,7 @@ const BottomDrawer: ForwardRefRenderFunction<
         let offset = 0;
         if (dy < 0) {
           if (enableSnapping) {
-            if (currentIndex.current + 1 == snapPoints.length) {
+            if (currentIndex.current + 1 === snapPoints.length) {
               offset = overDrag ? dy / 6 : 0;
             } else {
               offset = dy;

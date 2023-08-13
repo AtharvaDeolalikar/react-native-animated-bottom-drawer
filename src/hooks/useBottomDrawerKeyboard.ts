@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Platform, Keyboard} from 'react-native';
-import {UseBottomDrawerKeyboard, UseKeyboardDrawerProps} from '../type';
+import {UseBottomDrawerKeyboard, UseKeyboardDrawerProps} from '../..';
 import {getKeyboardOffset} from '../utils';
 
 const useBottomDrawerKeyboard = (
